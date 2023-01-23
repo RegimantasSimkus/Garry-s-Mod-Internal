@@ -29,13 +29,13 @@ public:
 
 		// call instruction for GetClientModeNormal
 		// found in CHLClient::CanRecordDemo aka index 50 of Interface->Client
-		DWORD pCallGetClientModeNormal = ((DWORD)((uintptr_t)((*(void***)Interface->Client)[50]) + 4));
+		DWORD pCallGetClientModeNormal = ((DWORD)((uintptr_t)((*(void***)Client)[50]) + 4));
 
 		// relative address + instruction address + 4 size of address = function address
 		DWORD pGetClientModeNormal = (*(DWORD*)pCallGetClientModeNormal) + pCallGetClientModeNormal + 4;
 
 		GetClientModeNormal = (tGetClientModeNormal)pGetClientModeNormal;
-		this->ClientModeShared = (::ClientModeShared*)GetClientModeNormal();
+		ClientModeShared = (::ClientModeShared*)GetClientModeNormal();
 	}
 
 	template <typename T>
