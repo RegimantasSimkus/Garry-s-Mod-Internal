@@ -15,7 +15,7 @@ public:
 	CHLClient* Client;
 	ClientModeShared* ClientModeShared;
 
-	typedef void* (*tGetClientModeNormal)();
+	typedef ::ClientModeShared* (*tGetClientModeNormal)();
 	tGetClientModeNormal GetClientModeNormal;
 
 	CInterfaces()
@@ -35,7 +35,7 @@ public:
 		DWORD pGetClientModeNormal = (*(DWORD*)pCallGetClientModeNormal) + pCallGetClientModeNormal + 4;
 
 		GetClientModeNormal = (tGetClientModeNormal)pGetClientModeNormal;
-		ClientModeShared = (::ClientModeShared*)GetClientModeNormal();
+		ClientModeShared = GetClientModeNormal();
 	}
 
 	template <typename T>
