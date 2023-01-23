@@ -139,6 +139,7 @@
     <ClInclude Include="clientmodeshared.h" />
     <ClInclude Include="color.h" />
     <ClInclude Include="debug.h" />
+    <ClInclude Include="globals.h" />
     <ClInclude Include="ibaseclientdll.h" />
     <ClInclude Include="icliententitylist.h" />
     <ClInclude Include="Interfaces.h" />

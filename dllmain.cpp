@@ -1,9 +1,11 @@
 #include <windows.h>
 #include "debug.h"
 #include "Interfaces.h"
+#include "globals.h"
 
 CInterfaces* Interface = nullptr;
 CDebugConsole* g_pDebug = nullptr;
+CGlobalVars* g_pGlobals = nullptr;
 BOOL WINAPI MainThread(LPVOID)
 {
 	g_pDebug = new CDebugConsole();
@@ -13,9 +15,9 @@ BOOL WINAPI MainThread(LPVOID)
 	Interface = new CInterfaces();
 	
 	// taking this from CHLClient::HudUpdate as it's pretty much the first instruction, easy to get
-	void* g_pGlobals = **(DWORD***)(void*)(
+	g_pGlobals = (CGlobalVars*)(**(DWORD***)(void*)(
 		(uintptr_t)(*(void***)Interface->Client)[11] + 5
-		);
+		));
 
 
 	g_pDebug->Print("g_pGlobals -> %p\n", g_pGlobals);
