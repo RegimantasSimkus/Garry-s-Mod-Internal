@@ -6,6 +6,8 @@
 #include "ivdebugoverlay.h"
 #include "chlclient.h"
 #include "clientmodeshared.h"
+#include "iluashared.h"
+
 class CInterfaces
 {
 public:
@@ -18,6 +20,8 @@ public:
 	typedef ::ClientModeShared* (*tGetClientModeNormal)();
 	tGetClientModeNormal GetClientModeNormal;
 
+	ILuaShared* LuaShared;
+
 	CInterfaces()
 	{
 		// could find a good amount of interfaces in CHLClient::Init
@@ -25,7 +29,7 @@ public:
 		ClientEntityList = CreateInterface<IClientEntityList>("client.dll", "VClientEntityList003");
 		DebugOverlay = CreateInterface<IVDebugOverlay>("engine.dll", "VDebugOverlay003");
 		Client = CreateInterface<CHLClient>("client.dll", "VClient017");
-
+		LuaShared = CreateInterface<ILuaShared>("lua_shared.dll", "LUASHARED003");
 
 		// call instruction for GetClientModeNormal
 		// found in CHLClient::CanRecordDemo aka index 50 of Interface->Client
