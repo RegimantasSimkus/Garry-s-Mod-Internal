@@ -2,6 +2,7 @@
 #include "debug.h"
 #include "Interfaces.h"
 #include "globals.h"
+#include "hooks.h"
 
 CInterfaces* Interface = nullptr;
 CDebugConsole* g_pDebug = nullptr;
@@ -10,25 +11,29 @@ BOOL WINAPI MainThread(LPVOID)
 {
 	g_pDebug = new CDebugConsole();
 	g_pDebug->CreateInstance();
-
 	g_pDebug->Print("Initializing Cheat...\n");
+
+	// initializing stuff
 	Interface = new CInterfaces();
-	
+	Hooks = new CHooks();
+
 	// taking this from CHLClient::HudUpdate as it's pretty much the first instruction, easy to get
 	g_pGlobals = (CGlobalVars*)(**(DWORD***)(void*)(
 		(uintptr_t)(*(void***)Interface->Client)[11] + 5
 		));
 
+	g_pDebug->Print("Setting up hooks...\n");
 
-	g_pDebug->Print("g_pGlobals -> %p\n", g_pGlobals);
-	g_pDebug->Print("GetClientModeNormal -> %p\n", Interface->ClientModeShared);
-	
-	Sleep(5000);
-	g_pDebug->Release();
-	Sleep(50);
+	Hooks->CreateMove->Hook();
 
-	delete g_pDebug;
+	g_pDebug->Print("So far so good\n");
+
+	Sleep(5000); // unload after 5 seconds
+	g_pDebug->Print("Unloading...\n");
+	Hooks->Release();
+	Sleep(100);
 	delete Interface;
+	g_pDebug->Release();
 	return TRUE;
 }
 
