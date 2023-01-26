@@ -16,9 +16,15 @@
     <Filter Include="Header Files\sdk">
       <UniqueIdentifier>{8a029893-a154-4ef4-952a-943c1e329854}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\hooks">
+      <UniqueIdentifier>{316aa5a7-6d2d-48c3-8edf-184f397abc75}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -54,6 +60,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="clientmodeshared.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="globals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iluashared.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="vmthook.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="createmove.h">
+      <Filter>Header Files\hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="hooks.h">
+      <Filter>Header Files\hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="cusercmd.h">
       <Filter>Header Files\sdk</Filter>
     </ClInclude>
   </ItemGroup>
