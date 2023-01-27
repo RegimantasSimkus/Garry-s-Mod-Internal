@@ -11,6 +11,26 @@
 class CInterfaces
 {
 public:
+	class InterfaceReg
+	{
+	protected:
+		typedef void* (__thiscall* tGetAddy)(void*);
+		tGetAddy GetAddy;
+
+	public:
+		// the name of the interface
+		const char* name;
+
+		// a pointer to the next interface
+		InterfaceReg* next;
+
+		// gets a pointer to the interface
+		void* GetAddress()
+		{
+			return GetAddy(this);
+		}
+	};
+
 	IClientDLLSharedAppSystems* ClientDLLSharedAppSystems;
 	IClientEntityList* ClientEntityList;
 	IVDebugOverlay* DebugOverlay;
@@ -80,12 +100,10 @@ public:
 		g_pDebug->Print("== %s ==\n", szMod);
 		if (pInterfaceRegs)
 		{
-			void* pCur = pInterfaceRegs;
-			while (pCur)
+			for (InterfaceReg* pCur = (InterfaceReg*)pInterfaceRegs; pCur != nullptr; pCur = pCur->next)
 			{
 				const char* name = *(const char**)((DWORD)pCur + 4);
-				g_pDebug->Print("%s\n", name);
-				pCur = *(DWORD**)((DWORD)pCur + 8);
+				g_pDebug->Print("%s (%p)\n", pCur->name, pCur->GetAddress());
 			}
 		}
 
