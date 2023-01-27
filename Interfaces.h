@@ -87,24 +87,28 @@ public:
 		if (!pCreateInterface)
 			return;
 
+		g_pDebug->Print("== %s ==\n", szMod);
+
 		DWORD jmpoffset = *(DWORD*)((uintptr_t)pCreateInterface + 5);
 
 		// + 5 for the jmp instruction address
 		// + 4 for size of address/pointer
 		DWORD pCreateInterfaceInternal = pCreateInterface + 5 + 4 + jmpoffset;
 
-		g_pDebug->Print("interface internal: %p\n", pCreateInterfaceInternal);
-		void* pInterfaceRegs = **(DWORD***)(pCreateInterfaceInternal + 6);
-		g_pDebug->Print("regs: %p\n", pInterfaceRegs);
+		// pointer to the first interface
+		InterfaceReg* pInterfaceRegs = **(InterfaceReg***)(pCreateInterfaceInternal + 6);
 
-		g_pDebug->Print("== %s ==\n", szMod);
 		if (pInterfaceRegs)
 		{
-			for (InterfaceReg* pCur = (InterfaceReg*)pInterfaceRegs; pCur != nullptr; pCur = pCur->next)
+			for (InterfaceReg* pCur = pInterfaceRegs; pCur != nullptr; pCur = pCur->next)
 			{
 				const char* name = *(const char**)((DWORD)pCur + 4);
 				g_pDebug->Print("%s (%p)\n", pCur->name, pCur->GetAddress());
 			}
+		}
+		else
+		{
+			g_pDebug->Print("No interfaces found.\n");
 		}
 
 	}
