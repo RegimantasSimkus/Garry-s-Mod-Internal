@@ -24,11 +24,14 @@ BOOL WINAPI MainThread(LPVOID)
 
 	g_pDebug->Print("Setting up hooks...\n");
 
+	Interface->Dump("client.dll");
+	Interface->Dump("engine.dll");
+
 	Hooks->CreateMove->Hook();
 
 	g_pDebug->Print("So far so good\n");
 
-	Sleep(5000); // unload after 5 seconds
+	Sleep(10000);
 	g_pDebug->Print("Unloading...\n");
 	Hooks->Release();
 	Sleep(100);

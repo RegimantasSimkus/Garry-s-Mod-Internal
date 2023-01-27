@@ -42,10 +42,10 @@ public:
 		ClientModeShared = GetClientModeNormal();
 	}
 
+	typedef void* (*tCreateInterface)(const char*, int*);
 	template <typename T>
 	T* CreateInterface(const char* szMod, const char* szInterface)
 	{
-		typedef void* (*tCreateInterface)(const char*, int*);
 		tCreateInterface pCreateInterface = (tCreateInterface)GetProcAddress(GetModuleHandleA(szMod), "CreateInterface");
 
 		int failed = 0;
@@ -55,6 +55,40 @@ public:
 		else
 			g_pDebug->Print("Found interface %s\t->\t%p\n", szInterface, ret);
 		return ret;
+	}
+
+	void Dump(const char* szMod)
+	{
+		HMODULE hMod = GetModuleHandleA(szMod);
+		if (!hMod)
+			return;
+
+		uintptr_t pCreateInterface = (uintptr_t)GetProcAddress(hMod, "CreateInterface");
+		if (!pCreateInterface)
+			return;
+
+		DWORD jmpoffset = *(DWORD*)((uintptr_t)pCreateInterface + 5);
+
+		// + 5 for the jmp instruction address
+		// + 4 for size of address/pointer
+		DWORD pCreateInterfaceInternal = pCreateInterface + 5 + 4 + jmpoffset;
+
+		g_pDebug->Print("interface internal: %p\n", pCreateInterfaceInternal);
+		void* pInterfaceRegs = **(DWORD***)(pCreateInterfaceInternal + 6);
+		g_pDebug->Print("regs: %p\n", pInterfaceRegs);
+
+		g_pDebug->Print("== %s ==\n", szMod);
+		if (pInterfaceRegs)
+		{
+			void* pCur = pInterfaceRegs;
+			while (pCur)
+			{
+				const char* name = *(const char**)((DWORD)pCur + 4);
+				g_pDebug->Print("%s\n", name);
+				pCur = *(DWORD**)((DWORD)pCur + 8);
+			}
+		}
+
 	}
 };
 
