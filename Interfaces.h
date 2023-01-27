@@ -102,7 +102,6 @@ public:
 		{
 			for (InterfaceReg* pCur = pInterfaceRegs; pCur != nullptr; pCur = pCur->next)
 			{
-				const char* name = *(const char**)((DWORD)pCur + 4);
 				g_pDebug->Print("%s (%p)\n", pCur->name, pCur->GetAddress());
 			}
 		}
