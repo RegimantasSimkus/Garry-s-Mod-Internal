@@ -96,11 +96,10 @@ public:
 
 		g_pDebug->Print("== %s ==\n", szMod);
 
-		DWORD jmpoffset = *(DWORD*)((uintptr_t)pCreateInterface + 5);
+		DWORD jmpoffset = (DWORD)((uintptr_t)pCreateInterface + 5);
 
-		// + 5 for the jmp instruction address
 		// + 4 for size of address/pointer
-		uintptr_t pCreateInterfaceInternal = pCreateInterface + 5 + 4 + jmpoffset;
+		uintptr_t pCreateInterfaceInternal = jmpoffset + *(DWORD*)jmpoffset + 4;
 
 		// pointer to the first interface
 		InterfaceReg* pInterfaceRegs = **(InterfaceReg***)(pCreateInterfaceInternal + 6);

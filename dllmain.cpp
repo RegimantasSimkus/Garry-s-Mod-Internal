@@ -23,14 +23,9 @@ BOOL WINAPI MainThread(HMODULE hThread)
 	DWORD jmp = *(DWORD*)callLocalPlayer;
 	GetLocalPlayer = (C_GMOD_Player*(*)())(callLocalPlayer + jmp + 4);
 
-	g_pDebug->Print("EntIndex: %s\n", ((C_GMOD_Player*)(Interface->ClientEntityList->GetClientEntity(2)))->GetName());
-
-	player_info_t info;
-	Interface->EngineClient->GetPlayerInfo(2, &info);
-	g_pDebug->Print("name: %s\n", info.name);
-
 	// name offset 30a4 ?
 	
+	Interface->Dump("client.dll");
 
 	//g_pDebug->Print("isdormant: %d\n", GetLocalPlayer()->GetClientNetworkable()->EntIndex());
 	// taking this from CHLClient::HudUpdate as it's pretty much the first instruction, easy to get
