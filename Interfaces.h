@@ -7,6 +7,8 @@
 #include "chlclient.h"
 #include "clientmodeshared.h"
 #include "iluashared.h"
+#include "ienginetool.h"
+#include "ivengineclient.h"
 
 class CInterfaces
 {
@@ -36,9 +38,12 @@ public:
 	IVDebugOverlay* DebugOverlay;
 	CHLClient* Client;
 	ClientModeShared* ClientModeShared;
+	IVEngineClient* EngineClient;
 
 	typedef ::ClientModeShared* (*tGetClientModeNormal)();
 	tGetClientModeNormal GetClientModeNormal;
+
+	IEngineTool* EngineTool;
 
 	ILuaShared* LuaShared;
 
@@ -50,6 +55,8 @@ public:
 		DebugOverlay = CreateInterface<IVDebugOverlay>("engine.dll", "VDebugOverlay003");
 		Client = CreateInterface<CHLClient>("client.dll", "VClient017");
 		LuaShared = CreateInterface<ILuaShared>("lua_shared.dll", "LUASHARED003");
+		EngineTool = CreateInterface<IEngineTool>("engine.dll", "VENGINETOOL003");
+		EngineClient = CreateInterface<IVEngineClient>("engine.dll", "VEngineClient015");
 
 		// call instruction for GetClientModeNormal
 		// found in CHLClient::CanRecordDemo aka index 50 of Interface->Client
@@ -93,7 +100,7 @@ public:
 
 		// + 5 for the jmp instruction address
 		// + 4 for size of address/pointer
-		DWORD pCreateInterfaceInternal = pCreateInterface + 5 + 4 + jmpoffset;
+		uintptr_t pCreateInterfaceInternal = pCreateInterface + 5 + 4 + jmpoffset;
 
 		// pointer to the first interface
 		InterfaceReg* pInterfaceRegs = **(InterfaceReg***)(pCreateInterfaceInternal + 6);
