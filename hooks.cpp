@@ -6,8 +6,13 @@ CHooks* Hooks = nullptr;
 CHooks::CHooks()
 {
 	// ClientModeShared
+	if (!Interface->ClientModeShared)
+	{
+		g_pDebug->Print("Failed to initialize hooks :(\n");
+		return;
+	}
 	ClientModeShared = new VMTHookManager(Interface->ClientModeShared);
-	CreateMove = ClientModeShared->Hook(21, (PVOID)hkCreateMove, reinterpret_cast<PVOID*>(&oCreateMove));
+	// CreateMove = ClientModeShared->Hook(21, (PVOID)hkCreateMove, reinterpret_cast<PVOID*>(&oCreateMove));
 
 	// and so on
 }
@@ -15,10 +20,15 @@ CHooks::CHooks()
 void CHooks::Release()
 {
 	// unhook everything
-	CreateMove->Restore();
+	if (CreateMove)
+	{
+		CreateMove->Restore();
+		delete CreateMove;
+	}
 
 	// clean up memory
-	delete ClientModeShared;
-	delete CreateMove;
+	if (ClientModeShared)
+		delete ClientModeShared;
+
 	delete this;
 }
