@@ -6,8 +6,8 @@ class CDebugConsole
 {
 protected:
 	size_t m_iPrints = 0;
-	FILE* pFile;
 public:
+	FILE* pFile;
 
 #ifndef _DEBUG
 
@@ -30,6 +30,7 @@ public:
 	void CreateInstance()
 	{
 		AllocConsole();
+		AttachConsole(GetCurrentProcessId());
 		freopen_s(&pFile, "CONOUT$", "w", stdout);
 	}
 
@@ -37,9 +38,7 @@ public:
 	{
 		if (pFile)
 			fclose(pFile);
-		pFile = nullptr;
 		FreeConsole();
-		delete this;
 	}
 #endif
 };
