@@ -56,9 +56,6 @@
     <ClInclude Include="qangle.h">
       <Filter>Header Files\sdk</Filter>
     </ClInclude>
-    <ClInclude Include="clientclass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="clientmodeshared.h">
       <Filter>Header Files\sdk</Filter>
     </ClInclude>
@@ -78,6 +75,39 @@
       <Filter>Header Files\hooks</Filter>
     </ClInclude>
     <ClInclude Include="cusercmd.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="ienginetool.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="ibaseinterface.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="iclientnetworkable.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="c_gmod_player.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="clientclass.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="cstudiohdr.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="cviewsetup.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="datamap.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="ivengineclient.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="vmatrix.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="studio.h">
       <Filter>Header Files\sdk</Filter>
     </ClInclude>
   </ItemGroup>
