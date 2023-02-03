@@ -33,19 +33,26 @@ public:
 		}
 	};
 
+	struct ModuleInterfaceReg
+	{
+		InterfaceReg* pInterfaceReg;
+		const char* szModule;
+		ModuleInterfaceReg* pNext;
+	};
+
 	IClientDLLSharedAppSystems* ClientDLLSharedAppSystems;
 	IClientEntityList* ClientEntityList;
 	IVDebugOverlay* DebugOverlay;
 	CHLClient* Client;
 	ClientModeShared* ClientModeShared;
 	IVEngineClient* EngineClient;
+	IEngineTool* EngineTool;
+	ILuaShared* LuaShared;
 
 	typedef ::ClientModeShared* (*tGetClientModeNormal)();
 	tGetClientModeNormal GetClientModeNormal;
 
-	IEngineTool* EngineTool;
-
-	ILuaShared* LuaShared;
+	ModuleInterfaceReg* InterfaceRegs;
 
 	CInterfaces()
 	{
@@ -94,7 +101,7 @@ public:
 		if (!pCreateInterface)
 			return;
 
-		g_pDebug->Print("== %s ==\n", szMod);
+		// g_pDebug->Print("== %s ==\n", szMod);
 
 		DWORD jmpoffset = (DWORD)((uintptr_t)pCreateInterface + 5);
 
@@ -103,12 +110,50 @@ public:
 
 		// pointer to the first interface
 		InterfaceReg* pInterfaceRegs = **(InterfaceReg***)(pCreateInterfaceInternal + 6);
+		
+		bool found = false;
+
+		ModuleInterfaceReg* modReg = InterfaceRegs;
+		ModuleInterfaceReg* pLast = modReg;
+		if (modReg)
+		{
+			for (modReg = InterfaceRegs; modReg != nullptr; modReg = modReg->pNext)
+			{
+				pLast = modReg;
+				if (!strcmp(modReg->szModule, szMod))
+				{
+					found = true;
+					break;
+				}
+
+				if (!modReg->pNext)
+					break;
+			}
+		}
+
+		// g_pDebug->Print("MODREG %p\n", modReg);
+
+		if (!found)
+		{
+			ModuleInterfaceReg* reg = new ModuleInterfaceReg();
+			reg->szModule = szMod;
+			reg->pInterfaceReg = pInterfaceRegs;
+
+			if (InterfaceRegs == nullptr)
+				InterfaceRegs = reg;
+			else if (pLast)
+				pLast->pNext = reg;
+
+			g_pDebug->Print("New reg\n%p %p %p", reg, InterfaceRegs, pLast);
+
+			// g_pDebug->Print("new reg: %p, %p, %p\n", reg, modReg, InterfaceRegs);
+		}
 
 		if (pInterfaceRegs)
 		{
 			for (InterfaceReg* pCur = pInterfaceRegs; pCur != nullptr; pCur = pCur->next)
 			{
-				g_pDebug->Print("%s (%p)\n", pCur->name, pCur->GetAddress());
+				// g_pDebug->Print("%s (%p)\n", pCur->name, pCur->GetAddress());
 			}
 		}
 		else

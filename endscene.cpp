@@ -1,5 +1,6 @@
 #include "endscene.h"
 #include "debug.h"
+#include "Interfaces.h"
 
 WNDPROC oWndProc = nullptr;
 void Initialize(IDirect3DDevice9* pDevice)
@@ -55,6 +56,18 @@ HRESULT __stdcall hkEndScene(IDirect3DDevice9* pDevice)
         g_bShutDown = true;
     }
 
+    CInterfaces::ModuleInterfaceReg* regs = Interface->InterfaceRegs;
+    for (CInterfaces::ModuleInterfaceReg* reg = regs; reg != nullptr; reg = reg->pNext)
+    {
+        if (ImGui::CollapsingHeader(reg->szModule))
+        {
+            for (CInterfaces::InterfaceReg* pInterface = reg->pInterfaceReg; pInterface != nullptr; pInterface = pInterface->next)
+            {
+                ImGui::Text("%s", pInterface->name);
+            }
+        }
+    }
+
     ImGui::End();
 
     ImGui::EndFrame();
@@ -66,7 +79,6 @@ HRESULT __stdcall hkEndScene(IDirect3DDevice9* pDevice)
         Shutdown(pDevice);
     }
 
-	g_pDebug->Print("%s", "x");
 	return oEndScene(pDevice);
 }
 

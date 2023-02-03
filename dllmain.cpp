@@ -34,6 +34,9 @@ BOOL WINAPI MainThread(HMODULE hThread)
 
 	g_pDebug->Print("Setting up hooks...\n");
 
+	Interface->Dump("client.dll");
+	Interface->Dump("engine.dll");
+
 	// + 0x116 = mov ..., esi
 	// + 0x116 + 2 = esi
 	DWORD pd33device9 = **(DWORD**)(FindSignature("shaderapidx9.dll", "\x55\x8B\xEC\x81\xEC\x00\x00\x00\x00\x53\x56\x57", "xxxxx????xxx") + 0x116 + 2);
