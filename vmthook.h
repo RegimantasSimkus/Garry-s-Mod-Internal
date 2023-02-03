@@ -53,6 +53,7 @@ public:
 class VMTHookManager
 {
 public:
+	PVOID pInst;
 	PVOID* vTable;
 
 	VMTHook* Hook(int index, PVOID pHook, PVOID* pOriginal)
@@ -92,5 +93,6 @@ public:
 	VMTHookManager(PVOID pInst)
 	{
 		vTable = *(PVOID**)pInst;
+		this->pInst = pInst;
 	}
 };

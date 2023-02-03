@@ -37,6 +37,8 @@ BOOL WINAPI MainThread(HMODULE hThread)
 	DWORD pd33device9 = **(DWORD**)(FindSignature("shaderapidx9.dll", "\x55\x8B\xEC\x81\xEC\x00\x00\x00\x00\x53\x56\x57", "xxxxx????xxx") + 0x116 + 2);
 	g_pDebug->Print("pdevice -> %p\n", pd33device9);
 
+	Hooks->EndScene->Hook();
+
 	// Hooks->CreateMove->Hook();
 
 	g_pDebug->Print("So far so good\n");

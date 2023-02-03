@@ -19,16 +19,22 @@
     <Filter Include="Header Files\hooks">
       <UniqueIdentifier>{316aa5a7-6d2d-48c3-8edf-184f397abc75}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\hooks">
+      <UniqueIdentifier>{b3cb903e-99f0-4864-8671-948396664fee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hooks.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="c_playerresource.cpp">
       <Filter>Header Files\sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="endscene.cpp">
+      <Filter>Source Files\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks.cpp">
+      <Filter>Source Files\hooks</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="c_playerresource.h">
       <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="endscene.h">
+      <Filter>Header Files\hooks</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
