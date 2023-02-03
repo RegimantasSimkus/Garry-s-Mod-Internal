@@ -162,6 +162,7 @@
     <ClInclude Include="ivdebugoverlay.h" />
     <ClInclude Include="ivengineclient.h" />
     <ClInclude Include="qangle.h" />
+    <ClInclude Include="sigscan.h" />
     <ClInclude Include="studio.h" />
     <ClInclude Include="vector.h" />
     <ClInclude Include="vmatrix.h" />
