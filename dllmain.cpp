@@ -12,6 +12,8 @@ CDebugConsole* g_pDebug = nullptr;
 CGlobalVars* g_pGlobals = nullptr;
 
 HMODULE hDll;
+
+bool g_bShutDown = false;
 BOOL WINAPI MainThread(HMODULE hThread)
 {
 	g_pDebug = new CDebugConsole();
@@ -43,8 +45,15 @@ BOOL WINAPI MainThread(HMODULE hThread)
 
 	g_pDebug->Print("So far so good\n");
 
-	while (!(GetAsyncKeyState(VK_END) & 1))
+	while (!g_bShutDown)
 	{
+		if (GetAsyncKeyState(VK_END) & 1)
+		{
+			g_bShutDown = true;
+			Sleep(50);
+			break;
+		}
+
 		if (GetAsyncKeyState(VK_INSERT) & 1)
 		{
 			for (size_t i = 1; i < g_pGlobals->maxClients; i++)
