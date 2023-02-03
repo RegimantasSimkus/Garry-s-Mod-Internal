@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="c_playerresource.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="hooks.cpp" />
   </ItemGroup>
@@ -148,6 +149,7 @@
     <ClInclude Include="cusercmd.h" />
     <ClInclude Include="cviewsetup.h" />
     <ClInclude Include="c_gmod_player.h" />
+    <ClInclude Include="c_playerresource.h" />
     <ClInclude Include="datamap.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="globals.h" />

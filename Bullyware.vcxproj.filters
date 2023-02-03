@@ -27,6 +27,9 @@
     <ClCompile Include="hooks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="c_playerresource.cpp">
+      <Filter>Header Files\sdk</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="debug.h">
@@ -112,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="sigscan.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="c_playerresource.h">
+      <Filter>Header Files\sdk</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
