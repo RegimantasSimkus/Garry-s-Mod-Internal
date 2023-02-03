@@ -26,16 +26,16 @@ BOOL WINAPI MainThread(HMODULE hThread)
 	DWORD jmp = *(DWORD*)callLocalPlayer;
 	GetLocalPlayer = (C_GMOD_Player*(*)())(callLocalPlayer + jmp + 4);
 
-	g_pDebug->Print("g_playerresource -> %p\n", PlayerResource());
-	g_pDebug->Print("g_GameResource -> %p\n", GameResource());
-
-	//g_pDebug->Print("isdormant: %d\n", GetLocalPlayer()->GetClientNetworkable()->EntIndex());
-	// taking this from CHLClient::HudUpdate as it's pretty much the first instruction, easy to get
 	g_pGlobals = (CGlobalVars*)(**(DWORD***)(void*)(
 		(uintptr_t)(*(void***)Interface->Client)[11] + 5
 		));
 
 	g_pDebug->Print("Setting up hooks...\n");
+
+	// + 0x116 = mov ..., esi
+	// + 0x116 + 2 = esi
+	DWORD pd33device9 = **(DWORD**)(FindSignature("shaderapidx9.dll", "\x55\x8B\xEC\x81\xEC\x00\x00\x00\x00\x53\x56\x57", "xxxxx????xxx") + 0x116 + 2);
+	g_pDebug->Print("pdevice -> %p\n", pd33device9);
 
 	// Hooks->CreateMove->Hook();
 
@@ -45,8 +45,12 @@ BOOL WINAPI MainThread(HMODULE hThread)
 	{
 		if (GetAsyncKeyState(VK_INSERT) & 1)
 		{
-			g_pDebug->Print("g_playerresource -> %p\n", PlayerResource());
-			g_pDebug->Print("g_GameResource -> %p\n", GameResource());
+			for (size_t i = 1; i < g_pGlobals->maxClients; i++)
+			{
+				C_GMOD_Player* ply = (C_GMOD_Player*)Interface->ClientEntityList->GetClientEntity(i);
+				if (!ply) continue;
+				g_pDebug->Print("%s %d\n", ply->GetName(), ply->GetHealth());
+			}
 		}
 
 		Sleep(10);
