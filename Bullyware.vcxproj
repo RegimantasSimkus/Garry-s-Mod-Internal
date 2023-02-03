@@ -168,6 +168,7 @@
     <ClInclude Include="c_playerresource.h" />
     <ClInclude Include="datamap.h" />
     <ClInclude Include="debug.h" />
+    <ClInclude Include="draw.h" />
     <ClInclude Include="endscene.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="hooks.h" />

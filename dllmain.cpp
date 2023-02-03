@@ -53,20 +53,9 @@ BOOL WINAPI MainThread(HMODULE hThread)
 		if (GetAsyncKeyState(VK_END) & 1)
 		{
 			g_bShutDown = true;
-			Sleep(50);
+			Sleep(300);
 			break;
 		}
-
-		if (GetAsyncKeyState(VK_INSERT) & 1)
-		{
-			for (size_t i = 1; i < g_pGlobals->maxClients; i++)
-			{
-				C_GMOD_Player* ply = (C_GMOD_Player*)Interface->ClientEntityList->GetClientEntity(i);
-				if (!ply) continue;
-				g_pDebug->Print("%s %d\n", ply->GetName(), ply->GetHealth());
-			}
-		}
-
 		Sleep(10);
 	}
 

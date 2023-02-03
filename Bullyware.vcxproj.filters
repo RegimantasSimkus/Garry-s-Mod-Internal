@@ -25,6 +25,9 @@
     <Filter Include="ImGui">
       <UniqueIdentifier>{29e47b82-efdd-45fc-9b50-b50458d753f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\utils">
+      <UniqueIdentifier>{0d8a82e1-7b49-43be-9f4e-b51a4f225fc7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -175,6 +178,9 @@
     </ClInclude>
     <ClInclude Include="ImGui\imstb_truetype.h">
       <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="draw.h">
+      <Filter>Header Files\utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

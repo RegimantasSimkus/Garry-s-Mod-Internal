@@ -1,6 +1,8 @@
 #include "endscene.h"
 #include "debug.h"
 #include "Interfaces.h"
+#include "globals.h"
+#include "c_gmod_player.h"
 
 WNDPROC oWndProc = nullptr;
 void Initialize(IDirect3DDevice9* pDevice)
@@ -49,6 +51,23 @@ HRESULT __stdcall hkEndScene(IDirect3DDevice9* pDevice)
     ImGui_ImplDX9_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
+
+    ImDrawList* list = ImGui::GetBackgroundDrawList();
+
+    for (int i = 0; i < g_pGlobals->maxClients; i++)
+    {
+        C_GMOD_Player* ply = (C_GMOD_Player*)Interface->ClientEntityList->GetClientEntity(i);
+        if (!ply)
+            continue;
+
+        if (ply->GetClientNetworkable()->IsDormant())
+            continue;
+
+        Vector screen;
+        Interface->DebugOverlay->ScreenPosition(ply->GetABSOrigin(), screen);
+
+        list->AddText({screen.x, screen.y}, ImColor(255, 255, 255), ply->GetName());
+    }
 
     ImGui::Begin("Window");
     if (ImGui::Button("Shutdown"))
