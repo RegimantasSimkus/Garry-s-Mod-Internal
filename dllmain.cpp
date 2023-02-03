@@ -4,10 +4,13 @@
 #include "globals.h"
 #include "hooks.h"
 #include "c_gmod_player.h"
+#include "sigscan.h"
+#include "c_playerresource.h"
 
 CInterfaces* Interface = nullptr;
 CDebugConsole* g_pDebug = nullptr;
 CGlobalVars* g_pGlobals = nullptr;
+
 HMODULE hDll;
 BOOL WINAPI MainThread(HMODULE hThread)
 {
@@ -23,9 +26,8 @@ BOOL WINAPI MainThread(HMODULE hThread)
 	DWORD jmp = *(DWORD*)callLocalPlayer;
 	GetLocalPlayer = (C_GMOD_Player*(*)())(callLocalPlayer + jmp + 4);
 
-	// name offset 30a4 ?
-	
-	Interface->Dump("client.dll");
+	g_pDebug->Print("g_playerresource -> %p\n", PlayerResource());
+	g_pDebug->Print("g_GameResource -> %p\n", GameResource());
 
 	//g_pDebug->Print("isdormant: %d\n", GetLocalPlayer()->GetClientNetworkable()->EntIndex());
 	// taking this from CHLClient::HudUpdate as it's pretty much the first instruction, easy to get
@@ -39,7 +41,17 @@ BOOL WINAPI MainThread(HMODULE hThread)
 
 	g_pDebug->Print("So far so good\n");
 
-	Sleep(10000);
+	while (!(GetAsyncKeyState(VK_END) & 1))
+	{
+		if (GetAsyncKeyState(VK_INSERT) & 1)
+		{
+			g_pDebug->Print("g_playerresource -> %p\n", PlayerResource());
+			g_pDebug->Print("g_GameResource -> %p\n", GameResource());
+		}
+
+		Sleep(10);
+	}
+
 	g_pDebug->Print("Unloading...\n");
 	Hooks->Release();
 	Sleep(100);
