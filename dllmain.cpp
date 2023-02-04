@@ -42,6 +42,20 @@ BOOL WINAPI MainThread(HMODULE hThread)
 	DWORD pd33device9 = **(DWORD**)(FindSignature("shaderapidx9.dll", "\x55\x8B\xEC\x81\xEC\x00\x00\x00\x00\x53\x56\x57", "xxxxx????xxx") + 0x116 + 2);
 	g_pDebug->Print("pdevice -> %p\n", pd33device9);
 
+	DWORD netchan = **(DWORD**)(FindSignature("engine.dll", "\x55\x8b\xec\x51\xa1\x00\x00\x00\x00\x8b\x50\x00\x8d\x48\x00\x85\xd2\x74\x00\x80\x3a\x00\x74\x00\xe8\x00\x00\x00\x00\x50\xe8\x00\x00\x00\x00\x83\xc4\x00\xeb\x00\x8b\x40\x00\x85\xc0", "xxxxx????xx?xx?xxx?xx?x?x????xx????xx?x?xx?xx") + 0x31);
+	g_pDebug->Print("baseclient: %p\n", netchan);
+
+	// disconnects from the server with your custom reason then crashes your game with a lua trace lol
+	// might be useful at some point
+	if (false)
+	{
+		typedef void(__thiscall* tDisconnect)(void* pThis, const char* reason);
+		tDisconnect Disconnect = *(tDisconnect*)(*(DWORD*)netchan + 0x90);
+		g_pDebug->Print("Disconnect: %p\n", Disconnect);
+
+		Disconnect((void*)netchan, "Copper door knobs are self-disinfecting.");
+	}
+
 	Hooks->EndScene->Hook();
 
 	// Hooks->CreateMove->Hook();
