@@ -45,9 +45,6 @@ HRESULT __stdcall hkEndScene(IDirect3DDevice9* pDevice)
         init = true;
     }
 
-    if (!isOpen)
-        return oEndScene(pDevice);
-
     ImGui_ImplDX9_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
@@ -69,25 +66,29 @@ HRESULT __stdcall hkEndScene(IDirect3DDevice9* pDevice)
         list->AddText({screen.x, screen.y}, ImColor(255, 255, 255), ply->GetName());
     }
 
-    ImGui::Begin("Window");
-    if (ImGui::Button("Shutdown"))
+    if (GetAsyncKeyState(VK_INSERT) & 1) isOpen = !isOpen;
+    if (isOpen)
     {
-        g_bShutDown = true;
-    }
-
-    CInterfaces::ModuleInterfaceReg* regs = Interface->InterfaceRegs;
-    for (CInterfaces::ModuleInterfaceReg* reg = regs; reg != nullptr; reg = reg->pNext)
-    {
-        if (ImGui::CollapsingHeader(reg->szModule))
+        ImGui::Begin("Window", &isOpen);
+        if (ImGui::Button("Shutdown"))
         {
-            for (CInterfaces::InterfaceReg* pInterface = reg->pInterfaceReg; pInterface != nullptr; pInterface = pInterface->next)
+            g_bShutDown = true;
+        }
+
+        CInterfaces::ModuleInterfaceReg* regs = Interface->InterfaceRegs;
+        for (CInterfaces::ModuleInterfaceReg* reg = regs; reg != nullptr; reg = reg->pNext)
+        {
+            if (ImGui::CollapsingHeader(reg->szModule))
             {
-                ImGui::Text("%s", pInterface->name);
+                for (CInterfaces::InterfaceReg* pInterface = reg->pInterfaceReg; pInterface != nullptr; pInterface = pInterface->next)
+                {
+                    ImGui::Text("%s", pInterface->name);
+                }
             }
         }
-    }
 
-    ImGui::End();
+        ImGui::End();
+    }
 
     ImGui::EndFrame();
     ImGui::Render();
