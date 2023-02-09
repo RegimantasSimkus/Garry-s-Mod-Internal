@@ -15,6 +15,7 @@ void Initialize(IDirect3DDevice9* pDevice)
 
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
+    io.MouseDrawCursor = false;
 
     ImGui_ImplDX9_Init(pDevice);
     ImGui_ImplWin32_Init(params.hFocusWindow);
@@ -51,7 +52,7 @@ HRESULT __stdcall hkEndScene(IDirect3DDevice9* pDevice)
 
     ImDrawList* list = ImGui::GetBackgroundDrawList();
 
-    for (int i = 0; i < g_pGlobals->maxClients; i++)
+    for (int i = 1; i < g_pGlobals->maxClients; i++)
     {
         C_GMOD_Player* ply = (C_GMOD_Player*)Interface->ClientEntityList->GetClientEntity(i);
         if (!ply)
