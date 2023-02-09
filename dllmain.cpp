@@ -36,19 +36,21 @@ BOOL WINAPI MainThread(HMODULE hThread)
 
 	Interface->Dump("client.dll");
 	Interface->Dump("engine.dll");
+	Interface->Dump("materialsystem.dll");
 
-	// + 0x116 = mov ..., esi
-	// + 0x116 + 2 = esi
-	DWORD pd33device9 = **(DWORD**)(FindSignature("shaderapidx9.dll", "\x55\x8B\xEC\x81\xEC\x00\x00\x00\x00\x53\x56\x57", "xxxxx????xxx") + 0x116 + 2);
-	g_pDebug->Print("pdevice -> %p\n", pd33device9);
+	g_pDebug->Print("LocalPlayer: %p (%p)\n", GetLocalPlayer(), GetLocalPlayer);
 
-	DWORD netchan = **(DWORD**)(FindSignature("engine.dll", "\x55\x8b\xec\x51\xa1\x00\x00\x00\x00\x8b\x50\x00\x8d\x48\x00\x85\xd2\x74\x00\x80\x3a\x00\x74\x00\xe8\x00\x00\x00\x00\x50\xe8\x00\x00\x00\x00\x83\xc4\x00\xeb\x00\x8b\x40\x00\x85\xc0", "xxxxx????xx?xx?xxx?xx?x?x????xx????xx?x?xx?xx") + 0x31);
-	g_pDebug->Print("baseclient: %p\n", netchan);
+	// will need to find a reference to this function as the address will change after a restart
+	DWORD pGetActiveWeapon = FindSignature("client.dll", "\x8b\x91\x00\x00\x00\x00\x83\xfa\x00\x74\x00\xa1\x00\x00\x00\x00\x8b\xca\x81\xe1\x00\x00\x00\x00\xc1\xea\x00\x03\xc9\x39\x54\xc8\x00\x75\x00\x8b\x44\xc8\x00\xc3\x33\xc0\xc3\xcc\xcc\xcc\xcc\xcc\x55\x8b\xec\x56\x8b\x75", "xx????xx?x?x????xxxx????xx?xxxxx?x?xxx?xxxxxxxxxxxxxxx");
+	typedef void* (__thiscall* tGetActiveWeapon)(void* pThis);
+	tGetActiveWeapon GetActiveWeapon = (tGetActiveWeapon)pGetActiveWeapon;
 
 	// disconnects from the server with your custom reason then crashes your game with a lua trace lol
 	// might be useful at some point
 	if (false)
 	{
+		DWORD netchan = **(DWORD**)(FindSignature("engine.dll", "\x55\x8b\xec\x51\xa1\x00\x00\x00\x00\x8b\x50\x00\x8d\x48\x00\x85\xd2\x74\x00\x80\x3a\x00\x74\x00\xe8\x00\x00\x00\x00\x50\xe8\x00\x00\x00\x00\x83\xc4\x00\xeb\x00\x8b\x40\x00\x85\xc0", "xxxxx????xx?xx?xxx?xx?x?x????xx????xx?x?xx?xx") + 0x31);
+
 		typedef void(__thiscall* tDisconnect)(void* pThis, const char* reason);
 		tDisconnect Disconnect = *(tDisconnect*)(*(DWORD*)netchan + 0x90);
 		g_pDebug->Print("Disconnect: %p\n", Disconnect);
@@ -70,6 +72,19 @@ BOOL WINAPI MainThread(HMODULE hThread)
 			Sleep(300);
 			break;
 		}
+
+		C_GMOD_Player* localplayer = GetLocalPlayer();
+		if (localplayer)
+		{
+			g_pDebug->Print("LocalActiveWeapon = %p\n", GetActiveWeapon(localplayer));
+		}
+
+		C_GMOD_Player* bot = (C_GMOD_Player*)Interface->ClientEntityList->GetClientEntity(2);
+		if (bot)
+		{
+			g_pDebug->Print("BotWeapon = %p\n", GetActiveWeapon(bot));
+		}
+
 		Sleep(10);
 	}
 
