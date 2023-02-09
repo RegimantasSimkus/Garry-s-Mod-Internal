@@ -101,8 +101,6 @@ public:
 		if (!pCreateInterface)
 			return;
 
-		// g_pDebug->Print("== %s ==\n", szMod);
-
 		DWORD jmpoffset = (DWORD)((uintptr_t)pCreateInterface + 5);
 
 		// + 4 for size of address/pointer
@@ -131,8 +129,6 @@ public:
 			}
 		}
 
-		// g_pDebug->Print("MODREG %p\n", modReg);
-
 		if (!found)
 		{
 			ModuleInterfaceReg* reg = new ModuleInterfaceReg();
@@ -143,23 +139,19 @@ public:
 				InterfaceRegs = reg;
 			else if (pLast)
 				pLast->pNext = reg;
-
-			g_pDebug->Print("New reg\n%p %p %p", reg, InterfaceRegs, pLast);
-
-			// g_pDebug->Print("new reg: %p, %p, %p\n", reg, modReg, InterfaceRegs);
 		}
 
-		if (pInterfaceRegs)
-		{
-			for (InterfaceReg* pCur = pInterfaceRegs; pCur != nullptr; pCur = pCur->next)
-			{
-				// g_pDebug->Print("%s (%p)\n", pCur->name, pCur->GetAddress());
-			}
-		}
-		else
-		{
-			g_pDebug->Print("No interfaces found.\n");
-		}
+		//if (pInterfaceRegs)
+		//{
+		//	for (InterfaceReg* pCur = pInterfaceRegs; pCur != nullptr; pCur = pCur->next)
+		//	{
+		//		g_pDebug->Print("%s (%p)\n", pCur->name, pCur->GetAddress());
+		//	}
+		//}
+		//else
+		//{
+		//	g_pDebug->Print("No interfaces found.\n");
+		//}
 
 	}
 };
