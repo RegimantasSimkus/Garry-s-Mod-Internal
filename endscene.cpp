@@ -3,6 +3,9 @@
 #include "Interfaces.h"
 #include "globals.h"
 #include "c_gmod_player.h"
+#include "drawing.h"
+
+CDrawingWrapper* draw;
 
 WNDPROC oWndProc = nullptr;
 void Initialize(IDirect3DDevice9* pDevice)
@@ -51,6 +54,10 @@ HRESULT __stdcall hkEndScene(IDirect3DDevice9* pDevice)
     ImGui::NewFrame();
 
     ImDrawList* list = ImGui::GetBackgroundDrawList();
+    if (!draw)
+        draw = new CDrawingWrapper(list);
+    if (!draw->DrawList)
+        draw->DrawList = list;
 
     for (int i = 1; i < g_pGlobals->maxClients; i++)
     {
