@@ -2,6 +2,7 @@
 #include "vector.h"
 #include "c_playerresource.h"
 #include "c_baseentity.h"
+#include "c_weapon.h"
 
 class C_GMOD_Player;
 static C_GMOD_Player* (*GetLocalPlayer)(void);
@@ -77,9 +78,9 @@ public:
 		return GameResource()->GetPlayerScore(EntIndex());
 	}
 
-	void* GetActiveWeapon()
+	C_Weapon* GetActiveWeapon()
 	{
-		using GetActiveWeapon = void* (__thiscall*)(void*);
+		using GetActiveWeapon = C_Weapon*(__thiscall*)(void*);
 		return ((GetActiveWeapon)( (*(void***)this)[279]) )(this);
 	}
 };
