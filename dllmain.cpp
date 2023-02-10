@@ -40,11 +40,6 @@ BOOL WINAPI MainThread(HMODULE hThread)
 
 	g_pDebug->Print("LocalPlayer: %p (%p)\n", GetLocalPlayer(), GetLocalPlayer);
 
-	// will need to find a reference to this function as the address will change after a restart
-	DWORD pGetActiveWeapon = FindSignature("client.dll", "\x8b\x91\x00\x00\x00\x00\x83\xfa\x00\x74\x00\xa1\x00\x00\x00\x00\x8b\xca\x81\xe1\x00\x00\x00\x00\xc1\xea\x00\x03\xc9\x39\x54\xc8\x00\x75\x00\x8b\x44\xc8\x00\xc3\x33\xc0\xc3\xcc\xcc\xcc\xcc\xcc\x55\x8b\xec\x56\x8b\x75", "xx????xx?x?x????xxxx????xx?xxxxx?x?xxx?xxxxxxxxxxxxxxx");
-	typedef void* (__thiscall* tGetActiveWeapon)(void* pThis);
-	tGetActiveWeapon GetActiveWeapon = (tGetActiveWeapon)pGetActiveWeapon;
-
 	// disconnects from the server with your custom reason then crashes your game with a lua trace lol
 	// might be useful at some point
 	if (false)
@@ -71,18 +66,6 @@ BOOL WINAPI MainThread(HMODULE hThread)
 			g_bShutDown = true;
 			Sleep(300);
 			break;
-		}
-
-		C_GMOD_Player* localplayer = GetLocalPlayer();
-		if (localplayer)
-		{
-			g_pDebug->Print("LocalActiveWeapon = %p\n", GetActiveWeapon(localplayer));
-		}
-
-		C_GMOD_Player* bot = (C_GMOD_Player*)Interface->ClientEntityList->GetClientEntity(2);
-		if (bot)
-		{
-			g_pDebug->Print("BotWeapon = %p\n", GetActiveWeapon(bot));
 		}
 
 		Sleep(10);

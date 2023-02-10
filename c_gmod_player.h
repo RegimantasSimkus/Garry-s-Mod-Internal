@@ -84,4 +84,10 @@ public:
 	{
 		return GameResource()->GetPlayerScore(EntIndex());
 	}
+
+	void* GetActiveWeapon()
+	{
+		using GetActiveWeapon = void* (__thiscall*)(void*);
+		return ((GetActiveWeapon)( (*(void***)this)[279]) )(this);
+	}
 };
