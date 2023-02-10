@@ -68,6 +68,11 @@ BOOL WINAPI MainThread(HMODULE hThread)
 			break;
 		}
 
+		if (GetLocalPlayer())
+		{
+			g_pDebug->Print("LocalPlayer = %p / %p\n", GetLocalPlayer()->GetCollideable()->GetEntity(), GetLocalPlayer());
+		}
+
 		Sleep(10);
 	}
 

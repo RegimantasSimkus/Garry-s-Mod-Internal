@@ -1,22 +1,14 @@
 #pragma once
 #include "vector.h"
-#include "iclientnetworkable.h"
 #include "c_playerresource.h"
+#include "c_baseentity.h"
 
 class C_GMOD_Player;
 static C_GMOD_Player* (*GetLocalPlayer)(void);
 
 
-class C_GMOD_Player
+class C_GMOD_Player : public C_BaseEntity
 {
-private:
-	virtual void* func0();
-	virtual void* func1();
-	virtual void* func2();
-public:
-	virtual void* GetCollideable();
-	virtual IClientNetworkable* GetClientNetworkable();
-	virtual void* GetClientRenderable();
 private:
 	virtual void* GetThis0();
 	virtual void* GetThis1();
