@@ -2,6 +2,8 @@
 
 typedef float vec_t;
 
+struct ImVec2;
+
 class Vector
 {
 public:
@@ -37,10 +39,6 @@ public:
 		return *this;
 	}
 
-
-	//-----------------------------------------------------------------------------
-	// Array access
-	//-----------------------------------------------------------------------------
 	inline vec_t& operator[](int i)
 	{
 		return ((vec_t*)this)[i];
@@ -59,6 +57,7 @@ public:
 		return *this;
 	}
 
+	operator ImVec2();
 };
 
 class VectorAligned : public Vector
