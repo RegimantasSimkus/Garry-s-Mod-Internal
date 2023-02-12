@@ -8,4 +8,6 @@ public:
 	{
 		return *(int*)((uintptr_t)this + 0x1818);
 	}
+
+	const char* GetLuaBase();
 };
