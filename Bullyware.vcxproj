@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClCompile Include="c_playerresource.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="drawing.cpp" />
     <ClCompile Include="endscene.cpp" />
     <ClCompile Include="hooks.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
@@ -154,8 +155,10 @@
     <ClCompile Include="ImGui\imgui_impl_win32.cpp" />
     <ClCompile Include="ImGui\imgui_tables.cpp" />
     <ClCompile Include="ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="vector.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="basetypes.h" />
     <ClInclude Include="chlclient.h" />
     <ClInclude Include="clientclass.h" />
     <ClInclude Include="clientmodeshared.h" />
@@ -164,20 +167,27 @@
     <ClInclude Include="cstudiohdr.h" />
     <ClInclude Include="cusercmd.h" />
     <ClInclude Include="cviewsetup.h" />
+    <ClInclude Include="c_baseentity.h" />
+    <ClInclude Include="c_weapon.h" />
     <ClInclude Include="c_gmod_player.h" />
     <ClInclude Include="c_playerresource.h" />
     <ClInclude Include="datamap.h" />
     <ClInclude Include="debug.h" />
-    <ClInclude Include="draw.h" />
+    <ClInclude Include="drawing.h" />
     <ClInclude Include="endscene.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="hooks.h" />
+    <ClInclude Include="iappsystem.h" />
     <ClInclude Include="ibaseclientdll.h" />
     <ClInclude Include="ibaseinterface.h" />
     <ClInclude Include="icliententitylist.h" />
     <ClInclude Include="iclientnetworkable.h" />
+    <ClInclude Include="icolorcorrection.h" />
     <ClInclude Include="ienginetool.h" />
     <ClInclude Include="iluashared.h" />
+    <ClInclude Include="imageformat.h" />
+    <ClInclude Include="imaterial.h" />
+    <ClInclude Include="imaterialsystem.h" />
     <ClInclude Include="ImGui\imconfig.h" />
     <ClInclude Include="ImGui\imgui.h" />
     <ClInclude Include="ImGui\imgui_impl_dx9.h" />

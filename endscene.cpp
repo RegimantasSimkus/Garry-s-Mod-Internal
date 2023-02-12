@@ -59,7 +59,7 @@ HRESULT __stdcall hkEndScene(IDirect3DDevice9* pDevice)
     if (!draw->DrawList)
         draw->DrawList = list;
 
-    for (int i = 1; i < g_pGlobals->maxClients; i++)
+    for (int i = 1; i <= g_pGlobals->maxClients; i++)
     {
         C_GMOD_Player* ply = (C_GMOD_Player*)Interface->ClientEntityList->GetClientEntity(i);
         if (!ply)
@@ -68,10 +68,7 @@ HRESULT __stdcall hkEndScene(IDirect3DDevice9* pDevice)
         if (ply->GetClientNetworkable()->IsDormant())
             continue;
 
-        Vector screen;
-        Interface->DebugOverlay->ScreenPosition(ply->GetABSOrigin(), screen);
-
-        list->AddText({screen.x, screen.y}, ImColor(255, 255, 255), ply->GetName());
+        draw->DrawTextScreenA(ply->GetName(), ply->GetABSOrigin(), ImColor(255, 255, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER);
     }
 
     if (GetAsyncKeyState(VK_INSERT) & 1) isOpen = !isOpen;

@@ -28,6 +28,12 @@
     <Filter Include="Header Files\utils">
       <UniqueIdentifier>{0d8a82e1-7b49-43be-9f4e-b51a4f225fc7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\utils">
+      <UniqueIdentifier>{ec409080-78fc-40c0-979d-b4f5e59ec77a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sdk">
+      <UniqueIdentifier>{3b961569-ab41-4024-ab08-f981fcb9833b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -35,12 +41,6 @@
     </ClCompile>
     <ClCompile Include="c_playerresource.cpp">
       <Filter>Header Files\sdk</Filter>
-    </ClCompile>
-    <ClCompile Include="endscene.cpp">
-      <Filter>Source Files\hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks.cpp">
-      <Filter>Source Files\hooks</Filter>
     </ClCompile>
     <ClCompile Include="ImGui\imgui.cpp">
       <Filter>ImGui</Filter>
@@ -62,6 +62,18 @@
     </ClCompile>
     <ClCompile Include="ImGui\imgui_widgets.cpp">
       <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="endscene.cpp">
+      <Filter>Source Files\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks.cpp">
+      <Filter>Source Files\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="drawing.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="vector.cpp">
+      <Filter>Source Files\sdk</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -179,7 +191,31 @@
     <ClInclude Include="ImGui\imstb_truetype.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="draw.h">
+    <ClInclude Include="icolorcorrection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="imageformat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="imaterial.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="imaterialsystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="c_baseentity.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="c_weapon.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="basetypes.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="iappsystem.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
   </ItemGroup>
