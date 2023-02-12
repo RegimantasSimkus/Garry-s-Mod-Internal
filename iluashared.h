@@ -14,63 +14,141 @@ enum lua_state_t : unsigned char
 	LUA_STATE_MENU
 };
 
+class ILuaInterface;
+
+struct lua_State
+{
+	unsigned char garbage[70];
+
+	ILuaInterface* luabase;
+};
+
 class ILuaInterface
 {
-	virtual void* __method_1();
-	virtual void* __method_2();
-	virtual void* __method_3();
-	virtual void* __method_4();
-	virtual void* __method_5();
-	virtual void* __method_6();
-	virtual void* __method_7();
-	virtual void* __method_8();
-	virtual void* __method_9();
-	virtual void* __method_10();
-	virtual void* __method_11();
-	virtual void* __method_12();
-	virtual void* __method_13();
-	virtual void* __method_14();
-	virtual void* __method_15();
-	virtual void* __method_16();
-	virtual void* __method_17();
-	virtual void* __method_18();
-	virtual void* __method_19();
-	virtual void* __method_20();
-	virtual void* __method_21();
-	virtual void* __method_22();
-	virtual void* __method_23();
-	virtual void* __method_24();
-	virtual void* __method_25();
-	virtual void* __method_26();
-	virtual void* __method_27();
-	virtual void* __method_28();
-	virtual void* __method_29();
-	virtual void* __method_30();
-	virtual void* __method_31();
-	virtual void* __method_32();
-	virtual void* __method_33();
-	virtual void* __method_34();
-	virtual void* __method_35();
-	virtual void* __method_36();
-	virtual void* __method_37();
-	virtual void* __method_38();
-	virtual void* __method_39();
-	virtual void* __method_40();
-	virtual void* __method_41();
-	virtual void* __method_42();
-	virtual void* __method_43();
-	virtual void* __method_44();
-	virtual void* __method_45();
-	virtual void* __method_46();
-	virtual void* __method_47();
-	virtual void* __method_48();
-	virtual void* __method_49();
-	virtual void* __method_50();
-	virtual void* __method_51();
-	virtual void* __method_52();
-	virtual void* __method_53();
-	virtual void* __method_54();
-	virtual void* __method_55();
+public:
+	struct UserData
+	{
+		void* data;
+		unsigned char type; // Change me to a uint32 one day
+	};
+
+	typedef int (*CFunc)(lua_State* L);
+
+	enum
+	{
+#ifdef GMOD_ALLOW_DEPRECATED
+		// Deprecated: Use `None` instead of `Invalid`
+		Invalid = -1,
+#endif
+
+		// Default Lua Types
+		None = -1,
+		Nil,
+		Bool,
+		LightUserData,
+		Number,
+		String,
+		Table,
+		Function,
+		UserData,
+		Thread,
+
+		// GMod Types
+		Entity,
+		Vec,
+		Angle,
+		PhysObj,
+		Save,
+		Restore,
+		DamageInfo,
+		EffectData,
+		MoveData,
+		RecipientFilter,
+		UserCmd,
+		ScriptedVehicle,
+		Material,
+		Panel,
+		Particle,
+		ParticleEmitter,
+		Texture,
+		UserMsg,
+		ConVar,
+		IMesh,
+		Matrix,
+		Sound,
+		PixelVisHandle,
+		DLight,
+		Video,
+		File,
+		Locomotion,
+		Path,
+		NavArea,
+		SoundHandle,
+		NavLadder,
+		ParticleSystem,
+		ProjectedTexture,
+		PhysCollide,
+		SurfaceInfo,
+
+		Type_Count
+	};
+
+	virtual int         Top(void) = 0;
+	virtual void        Push(int iStackPos) = 0;
+	virtual void        Pop(int iAmt = 1) = 0;
+	virtual void        GetTable(int iStackPos) = 0;
+	virtual void        GetField(int iStackPos, const char* strName) = 0;
+	virtual void        SetField(int iStackPos, const char* strName) = 0;
+	virtual void        CreateTable() = 0;
+	virtual void        SetTable(int iStackPos) = 0;
+	virtual void        SetMetaTable(int iStackPos) = 0;
+	virtual bool        GetMetaTable(int i) = 0;
+	virtual void        Call(int iArgs, int iResults) = 0;
+	virtual int         PCall(int iArgs, int iResults, int iErrorFunc) = 0;
+	virtual int         Equal(int iA, int iB) = 0;
+	virtual int         RawEqual(int iA, int iB) = 0;
+	virtual void        Insert(int iStackPos) = 0;
+	virtual void        Remove(int iStackPos) = 0;
+	virtual int         Next(int iStackPos) = 0;
+	virtual void* NewUserdata(unsigned int iSize) = 0;
+	virtual void        ThrowError(const char* strError) = 0;
+	virtual void        CheckType(int iStackPos, int iType) = 0;
+	virtual void        ArgError(int iArgNum, const char* strMessage) = 0;
+	virtual void        RawGet(int iStackPos) = 0;
+	virtual void        RawSet(int iStackPos) = 0;
+	virtual const char* GetString(int iStackPos = -1, unsigned int* iOutLen = NULL) = 0;
+	virtual double      GetNumber(int iStackPos = -1) = 0;
+	virtual bool        GetBool(int iStackPos = -1) = 0;
+	virtual CFunc       GetCFunction(int iStackPos = -1) = 0;
+	virtual void* GetUserdata(int iStackPos = -1) = 0;
+	virtual void        PushNil() = 0;
+	virtual void        PushString(const char* val, unsigned int iLen = 0) = 0;
+	virtual void        PushNumber(double val) = 0;
+	virtual void        PushBool(bool val) = 0;
+	virtual void        PushCFunction(CFunc val) = 0;
+	virtual void        PushCClosure(CFunc val, int iVars) = 0;
+	virtual void        PushUserdata(void*) = 0;
+	virtual int         ReferenceCreate() = 0;
+	virtual void        ReferenceFree(int i) = 0;
+	virtual void        ReferencePush(int i) = 0;
+	virtual void        PushSpecial(int iType) = 0;
+	virtual bool        IsType(int iStackPos, int iType) = 0;
+	virtual int         GetType(int iStackPos) = 0;
+	virtual const char* GetTypeName(int iType) = 0;
+	virtual void        CreateMetaTableType(const char* strName, int iType) = 0;
+	virtual const char* CheckString(int iStackPos = -1) = 0;
+	virtual double      CheckNumber(int iStackPos = -1) = 0;
+	virtual int         ObjLen(int iStackPos = -1) = 0;
+	virtual const QAngle& GetAngle(int iStackPos = -1) = 0;
+	virtual const Vector& GetVector(int iStackPos = -1) = 0;
+	virtual void        PushAngle(const QAngle& val) = 0;
+	virtual void        PushVector(const Vector& val) = 0;
+	virtual void        SetState(lua_State* L) = 0;
+	virtual int         CreateMetaTable(const char* strName) = 0;
+	virtual bool        PushMetaTable(int iType) = 0;
+	virtual void        PushUserType(void* data, int iType) = 0;
+	virtual void        SetUserType(int iStackPos, void* data) = 0;
+private:
 	virtual void* __method_56();
 	virtual void* __method_57();
 	virtual void* __method_58();

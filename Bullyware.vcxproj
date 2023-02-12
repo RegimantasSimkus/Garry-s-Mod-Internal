@@ -168,6 +168,7 @@
     <ClInclude Include="cusercmd.h" />
     <ClInclude Include="cviewsetup.h" />
     <ClInclude Include="c_baseentity.h" />
+    <ClInclude Include="cluaobject.h" />
     <ClInclude Include="c_weapon.h" />
     <ClInclude Include="c_gmod_player.h" />
     <ClInclude Include="c_playerresource.h" />
