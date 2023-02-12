@@ -218,5 +218,8 @@
     <ClInclude Include="drawing.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
+    <ClInclude Include="cluaobject.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
