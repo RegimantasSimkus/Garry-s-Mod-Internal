@@ -68,7 +68,45 @@ HRESULT __stdcall hkEndScene(IDirect3DDevice9* pDevice)
         if (ply->GetClientNetworkable()->IsDormant())
             continue;
 
-        draw->DrawTextScreenA(ply->GetName(), ply->GetABSOrigin(), ImColor(255, 255, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER);
+        float x, y;
+        draw->DrawTextScreenA(ply->GetName(), ply->GetABSOrigin(), ImColor(255, 255, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, &x, &y);
+
+        C_Weapon* weapon = ply->GetActiveWeapon();
+        if (weapon)
+        {
+            ILuaInterface* lua = Interface->LuaShared->GetInterface(LUA_STATE_CLIENT);
+            
+            CLuaObject* obj = weapon->GetLuaTable();
+
+            obj->Push();
+            lua->GetField(-1, "Base");
+
+            if (lua->GetType(-1) == lua->String)
+            {
+                const char* base = lua->GetString(-1);
+                g_pDebug->Print("Type: %s\n", base);
+            }
+
+            lua->Pop(2);
+
+            // draw->DrawTextA(base, ImVec2(x, y + 2), ImColor(255, 255, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP);
+
+            /* 
+            if (!lua->IsType(-1, lua->Table))
+            {
+                lua->Pop();
+            }
+            else
+            {
+                lua->GetField(-1, "Base");
+
+                const char* name = lua->GetString();
+
+                lua->Pop(2);
+            
+
+            }*/
+        }
     }
 
     if (GetAsyncKeyState(VK_INSERT) & 1) isOpen = !isOpen;

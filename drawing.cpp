@@ -27,7 +27,7 @@ void CDrawingWrapper::DrawWorldLine(const Vector& start, const Vector& end, ImCo
 	DrawLine(screenStart, screenEnd, col, thickness);
 }
 
-void CDrawingWrapper::DrawTextA(const char* text, const ImVec2& pos, ImColor col, TextAlign alignx, TextAlign aligny)
+void CDrawingWrapper::DrawTextA(const char* text, const ImVec2& pos, ImColor col, TextAlign alignx, TextAlign aligny, float* outx, float* outy)
 {
 	const char* textend = text + strlen(text);
 
@@ -43,12 +43,23 @@ void CDrawingWrapper::DrawTextA(const char* text, const ImVec2& pos, ImColor col
 	else if (aligny == TEXT_ALIGN_CENTER)
 		adjustedPos.y -= size.y / 2.f;
 
+	if (outx)
+		*outx = adjustedPos.x;
+	if (outy)
+		*outy = adjustedPos.y;
+
 	DrawList->AddText(adjustedPos, col, text, textend);
 }
 
-void CDrawingWrapper::DrawTextScreenA(const char* text, const Vector& pos, ImColor col, TextAlign alignx, TextAlign aligny)
+void CDrawingWrapper::DrawTextScreenA(const char* text, const Vector& pos, ImColor col, TextAlign alignx, TextAlign aligny, float* outx, float* outy)
 {
 	Vector screenpos;
 	Interface->DebugOverlay->ScreenPosition(pos, screenpos);
+
+	if (outx)
+		*outx = screenpos.x;
+	if (outy)
+		*outy = screenpos.y;
+
 	DrawTextA(text, screenpos, col, alignx, aligny);
 }
