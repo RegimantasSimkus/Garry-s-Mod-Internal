@@ -75,6 +75,12 @@
     <ClCompile Include="vector.cpp">
       <Filter>Source Files\sdk</Filter>
     </ClCompile>
+    <ClCompile Include="createmove.cpp">
+      <Filter>Source Files\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="c_weapon.cpp">
+      <Filter>Source Files\sdk</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="debug.h">
@@ -158,9 +164,6 @@
     <ClInclude Include="studio.h">
       <Filter>Header Files\sdk</Filter>
     </ClInclude>
-    <ClInclude Include="sigscan.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="c_playerresource.h">
       <Filter>Header Files\sdk</Filter>
     </ClInclude>
@@ -220,6 +223,9 @@
     </ClInclude>
     <ClInclude Include="cluaobject.h">
       <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="sigscan.h">
+      <Filter>Header Files\utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

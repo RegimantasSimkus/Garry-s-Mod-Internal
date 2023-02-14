@@ -49,7 +49,7 @@ public:
 	IEngineTool* EngineTool;
 	ILuaShared* LuaShared;
 
-	typedef ::ClientModeShared* (*tGetClientModeNormal)();
+	typedef ::ClientModeShared* (__stdcall* tGetClientModeNormal)();
 	tGetClientModeNormal GetClientModeNormal;
 
 	ModuleInterfaceReg* InterfaceRegs;
@@ -67,10 +67,17 @@ public:
 
 		// call instruction for GetClientModeNormal
 		// found in CHLClient::CanRecordDemo aka index 50 of Interface->Client
-		DWORD pCallGetClientModeNormal = ((DWORD)((uintptr_t)((*(void***)Client)[50]) + 4));
-
+		uintptr_t pCallGetClientModeNormal = ((uintptr_t)((*(void***)Client)[50]) +
+#ifndef _WIN64
+			4
+#else
+			17
+#endif
+			);
+		g_pDebug->Print("pCallGetClientModeNormal: %p\n", pCallGetClientModeNormal);
 		// relative address + instruction address + 4 size of address = function address
-		DWORD pGetClientModeNormal = (*(DWORD*)pCallGetClientModeNormal) + pCallGetClientModeNormal + 4;
+		uintptr_t pGetClientModeNormal = pCallGetClientModeNormal + (*(int*)pCallGetClientModeNormal) + 4;
+		g_pDebug->Print("pGetClientModeNormal: %p\n", pGetClientModeNormal);
 
 		GetClientModeNormal = (tGetClientModeNormal)pGetClientModeNormal;
 		ClientModeShared = GetClientModeNormal();
@@ -101,14 +108,32 @@ public:
 		if (!pCreateInterface)
 			return;
 
-		DWORD jmpoffset = (DWORD)((uintptr_t)pCreateInterface + 5);
+		uintptr_t jmpoffset = (uintptr_t)((uintptr_t)pCreateInterface + 
+#ifdef _WIN64
+			1
+#else
+			5
+#endif
+			);
 
 		// + 4 for size of address/pointer
-		uintptr_t pCreateInterfaceInternal = jmpoffset + *(DWORD*)jmpoffset + 4;
+		uintptr_t pCreateInterfaceInternal = jmpoffset + *(int*)jmpoffset + 4;
+
 
 		// pointer to the first interface
+
+#ifndef _WIN64
 		InterfaceReg* pInterfaceRegs = **(InterfaceReg***)(pCreateInterfaceInternal + 6);
+#else
+		uintptr_t mov = pCreateInterfaceInternal + 18;
+		InterfaceReg* pInterfaceRegs = *(InterfaceReg**)(mov + 4 + *(int*)mov);
+#endif
 		
+
+#ifdef _WIN64
+		g_pDebug->Print("pInterfaceRegs -> %p\n", pInterfaceRegs);
+#endif
+
 		bool found = false;
 
 		ModuleInterfaceReg* modReg = InterfaceRegs;
@@ -141,17 +166,19 @@ public:
 				pLast->pNext = reg;
 		}
 
-		//if (pInterfaceRegs)
-		//{
-		//	for (InterfaceReg* pCur = pInterfaceRegs; pCur != nullptr; pCur = pCur->next)
-		//	{
-		//		g_pDebug->Print("%s (%p)\n", pCur->name, pCur->GetAddress());
-		//	}
-		//}
-		//else
-		//{
-		//	g_pDebug->Print("No interfaces found.\n");
-		//}
+//#ifdef _WIN64
+//		if (pInterfaceRegs)
+//		{
+//			for (InterfaceReg* pCur = pInterfaceRegs; pCur != nullptr; pCur = pCur->next)
+//			{
+//				g_pDebug->Print("%s (%p)\n", pCur->name, pCur->GetAddress());
+//			}
+//		}
+//		else
+//		{
+//			g_pDebug->Print("No interfaces found.\n");
+//		}
+//#endif
 
 	}
 };

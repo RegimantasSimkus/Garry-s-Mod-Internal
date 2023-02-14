@@ -24,21 +24,37 @@ BOOL WINAPI MainThread(HMODULE hThread)
 	Interface = new CInterfaces();
 	Hooks = new CHooks();
 
-	DWORD callLocalPlayer = (DWORD)((DWORD)(*(void***)Interface->ClientModeShared)[21] + 4);
-	DWORD jmp = *(DWORD*)callLocalPlayer;
-	GetLocalPlayer = (C_GMOD_Player*(*)())(callLocalPlayer + jmp + 4);
+	g_pDebug->Print("Getting localplayer...\n");
+	uintptr_t callLocalPlayer = (uintptr_t)((uintptr_t)(*(void***)Interface->ClientModeShared)[21] + 
+#ifndef _WIN64
+		4
+#else
+		18
+#endif
+		);
+	int call = *(int*)callLocalPlayer;
+	GetLocalPlayer = (C_GMOD_Player*(*)())(callLocalPlayer + call + 4);
 
+#ifndef _WIN64
 	g_pGlobals = (CGlobalVars*)(**(DWORD***)(void*)(
 		(uintptr_t)(*(void***)Interface->Client)[11] + 5
-		));
+	));
+#else
+	{
+		uintptr_t mov = (uintptr_t)((*(void***)Interface->Client)[11]) + 9;
+		g_pGlobals = *(CGlobalVars**)(
+			mov + *(int*)mov + 4
+		);
+	}
+#endif
+
+
 
 	g_pDebug->Print("Setting up hooks...\n");
 
 	Interface->Dump("client.dll");
 	Interface->Dump("engine.dll");
 	Interface->Dump("materialsystem.dll");
-
-	g_pDebug->Print("LocalPlayer: %p (%p)\n", GetLocalPlayer(), GetLocalPlayer);
 
 	// disconnects from the server with your custom reason then crashes your game with a lua trace lol
 	// might be useful at some point
@@ -57,18 +73,9 @@ BOOL WINAPI MainThread(HMODULE hThread)
 
 	// Hooks->CreateMove->Hook();
 
-	g_pDebug->Print("So far so good\n");
-
 	while (!g_bShutDown)
 	{
-		if (GetAsyncKeyState(VK_END) & 1)
-		{
-			g_bShutDown = true;
-			Sleep(300);
-			break;
-		}
-
-		Sleep(10);
+		Sleep(25);
 	}
 
 	g_pDebug->Print("Unloading...\n");

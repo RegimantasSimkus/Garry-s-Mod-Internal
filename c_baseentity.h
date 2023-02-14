@@ -43,8 +43,19 @@ public:
 
 	const char* GetClassname()
 	{
-		static DWORD addy = FindSignature("client.dll", "\x53\x8B\xD9\x8B\x83\x00\x00\x00\x00\x85\xC0\x74\x11", "xxxxx????xxxx");
-		return ((const char* (__thiscall*)(void*))(addy))(this);
+#ifdef _WIN64
+		static uintptr_t call = FindSignature("client.dll", "\x40\x57\x48\x83\xEC\x50\x80\xB9\x00\x00\x00\x00\x00\x4C\x8B\xCA", "xxxxxxxx?????xxx") + 0xB9 + 1;
+		static uintptr_t func = call + *(int*)call + 4;
+#else
+		static DWORD func = FindSignature("client.dll", "\x53\x8B\xD9\x8B\x83\x00\x00\x00\x00\x85\xC0\x74\x11", "xxxxx????xxxx");
+#endif
+		return ((const char* (
+#ifdef _WIN64
+			__fastcall
+#else
+			__thiscall
+#endif
+			*)(void*))(func))(this);
 	}
 
 	int PushEntity()
