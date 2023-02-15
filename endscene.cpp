@@ -162,7 +162,7 @@ HRESULT __stdcall hkEndScene(IDirect3DDevice9* pDevice)
             g_bShutDown = true;
         }
 
-        /*CInterfaces::ModuleInterfaceReg* regs = Interface->InterfaceRegs;
+        CInterfaces::ModuleInterfaceReg* regs = Interface->InterfaceRegs;
         for (CInterfaces::ModuleInterfaceReg* reg = regs; reg != nullptr; reg = reg->pNext)
         {
             if (ImGui::CollapsingHeader(reg->szModule))
@@ -172,7 +172,7 @@ HRESULT __stdcall hkEndScene(IDirect3DDevice9* pDevice)
                     ImGui::Text("%s", pInterface->name);
                 }
             }
-        }*/
+        }
 
          ImGui::End();
     }
