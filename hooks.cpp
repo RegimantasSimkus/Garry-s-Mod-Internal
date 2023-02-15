@@ -18,9 +18,7 @@ CHooks::CHooks()
 
 #ifndef _WIN64
 	pD3DDevice = new VMTHookManager(
-	(PVOID)(**(DWORD**)(FindSignature("shaderapidx9.dll", "\x55\x8B\xEC\x81\xEC\x00\x00\x00\x00\x53\x56\x57", "xxxxx????xxx") + 0x116 + 2))
-// #else
-		FindSignature("shaderapidx9.dll", "\x8B\xCF\x89\x35\x00\x00\x00\x00", "xxxx????")
+		(PVOID)(**(DWORD**)(FindSignature("shaderapidx9.dll", "\x55\x8B\xEC\x81\xEC\x00\x00\x00\x00\x53\x56\x57", "xxxxx????xxx") + 0x116 + 2))
 	);
 #else
 	{
@@ -32,10 +30,9 @@ CHooks::CHooks()
 		);
 	}
 
-	EndScene = pD3DDevice->Hook(42, (PVOID)hkEndScene, reinterpret_cast<PVOID*>(&oEndScene));
 #endif
 
-	// and so on
+	EndScene = pD3DDevice->Hook(42, (PVOID)hkEndScene, reinterpret_cast<PVOID*>(&oEndScene));
 }
 
 #define SAFE_RESTORE(name) \

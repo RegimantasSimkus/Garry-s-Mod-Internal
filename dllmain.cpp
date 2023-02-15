@@ -70,8 +70,7 @@ BOOL WINAPI MainThread(HMODULE hThread)
 	}
 
 	Hooks->EndScene->Hook();
-
-	// Hooks->CreateMove->Hook();
+	Hooks->CreateMove->Hook();
 
 	while (!g_bShutDown)
 	{
