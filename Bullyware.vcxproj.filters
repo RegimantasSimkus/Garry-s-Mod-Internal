@@ -78,11 +78,11 @@
     <ClCompile Include="vector.cpp">
       <Filter>SDK</Filter>
     </ClCompile>
+    <ClCompile Include="NetvarManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="debug.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Interfaces.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -110,14 +110,8 @@
     <ClInclude Include="clientmodeshared.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="globals.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="iluashared.h">
       <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="vmthook.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="createmove.h">
       <Filter>Header Files\hooks</Filter>
@@ -191,18 +185,6 @@
     <ClInclude Include="ImGui\imstb_truetype.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="icolorcorrection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="imageformat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="imaterial.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="imaterialsystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="c_baseentity.h">
       <Filter>SDK</Filter>
     </ClInclude>
@@ -223,6 +205,30 @@
     </ClInclude>
     <ClInclude Include="sigscan.h">
       <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="globals.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="icolorcorrection.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="imaterial.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="imaterialsystem.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="vmthook.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="imageformat.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="debug.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="NetvarManager.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

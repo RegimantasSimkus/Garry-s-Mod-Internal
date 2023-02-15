@@ -156,6 +156,7 @@
     <ClCompile Include="c_weapon.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="drawing.cpp" />
+    <ClCompile Include="NetvarManager.cpp" />
     <ClCompile Include="endscene.cpp" />
     <ClCompile Include="hooks.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
@@ -210,6 +211,7 @@
     <ClInclude Include="Interfaces.h" />
     <ClInclude Include="ivdebugoverlay.h" />
     <ClInclude Include="ivengineclient.h" />
+    <ClInclude Include="NetvarManager.h" />
     <ClInclude Include="qangle.h" />
     <ClInclude Include="sigscan.h" />
     <ClInclude Include="studio.h" />

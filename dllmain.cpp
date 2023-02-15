@@ -6,6 +6,7 @@
 #include "c_gmod_player.h"
 #include "sigscan.h"
 #include "c_playerresource.h"
+#include "NetvarManager.h"
 
 CInterfaces* Interface = nullptr;
 CDebugConsole* g_pDebug = nullptr;
@@ -48,7 +49,9 @@ BOOL WINAPI MainThread(HMODULE hThread)
 	}
 #endif
 
-
+	CNetvarManager* netvarmngr = new CNetvarManager();
+	netvarmngr->DumpClass(nullptr);
+	g_pDebug->Print("LP: %p\n", GetLocalPlayer());
 
 	g_pDebug->Print("Setting up hooks...\n");
 
@@ -70,7 +73,7 @@ BOOL WINAPI MainThread(HMODULE hThread)
 	}
 
 	Hooks->EndScene->Hook();
-	Hooks->CreateMove->Hook();
+	// Hooks->CreateMove->Hook();
 
 	while (!g_bShutDown)
 	{
