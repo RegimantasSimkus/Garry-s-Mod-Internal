@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\sdk">
-      <UniqueIdentifier>{8a029893-a154-4ef4-952a-943c1e329854}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\hooks">
       <UniqueIdentifier>{316aa5a7-6d2d-48c3-8edf-184f397abc75}</UniqueIdentifier>
     </Filter>
@@ -31,8 +28,8 @@
     <Filter Include="Source Files\utils">
       <UniqueIdentifier>{ec409080-78fc-40c0-979d-b4f5e59ec77a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\sdk">
-      <UniqueIdentifier>{3b961569-ab41-4024-ab08-f981fcb9833b}</UniqueIdentifier>
+    <Filter Include="SDK">
+      <UniqueIdentifier>{8a029893-a154-4ef4-952a-943c1e329854}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -40,7 +37,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="c_playerresource.cpp">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClCompile>
     <ClCompile Include="ImGui\imgui.cpp">
       <Filter>ImGui</Filter>
@@ -72,14 +69,14 @@
     <ClCompile Include="drawing.cpp">
       <Filter>Source Files\utils</Filter>
     </ClCompile>
-    <ClCompile Include="vector.cpp">
-      <Filter>Source Files\sdk</Filter>
-    </ClCompile>
     <ClCompile Include="createmove.cpp">
       <Filter>Source Files\hooks</Filter>
     </ClCompile>
     <ClCompile Include="c_weapon.cpp">
-      <Filter>Source Files\sdk</Filter>
+      <Filter>SDK</Filter>
+    </ClCompile>
+    <ClCompile Include="vector.cpp">
+      <Filter>SDK</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -90,34 +87,34 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="chlclient.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="ibaseclientdll.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="icliententitylist.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="ivdebugoverlay.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="vector.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="color.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="qangle.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="clientmodeshared.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="globals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="iluashared.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="vmthook.h">
       <Filter>Header Files</Filter>
@@ -129,43 +126,43 @@
       <Filter>Header Files\hooks</Filter>
     </ClInclude>
     <ClInclude Include="cusercmd.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="ienginetool.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="ibaseinterface.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="iclientnetworkable.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="c_gmod_player.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="clientclass.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="cstudiohdr.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="cviewsetup.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="datamap.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="ivengineclient.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="vmatrix.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="studio.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="c_playerresource.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="endscene.h">
       <Filter>Header Files\hooks</Filter>
@@ -207,22 +204,22 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="c_baseentity.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="c_weapon.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="basetypes.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="iappsystem.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="drawing.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
     <ClInclude Include="cluaobject.h">
-      <Filter>Header Files\sdk</Filter>
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="sigscan.h">
       <Filter>Header Files\utils</Filter>
