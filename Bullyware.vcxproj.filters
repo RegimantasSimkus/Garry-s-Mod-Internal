@@ -81,6 +81,12 @@
     <ClCompile Include="NetvarManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tramphook.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="c_enginevgui.cpp">
+      <Filter>SDK</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Interfaces.h">
@@ -229,6 +235,15 @@
     </ClInclude>
     <ClInclude Include="NetvarManager.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tramphook.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="asm_resolver.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="c_enginevgui.h">
+      <Filter>SDK</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

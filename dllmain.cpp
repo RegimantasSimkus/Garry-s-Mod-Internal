@@ -7,6 +7,9 @@
 #include "sigscan.h"
 #include "c_playerresource.h"
 #include "NetvarManager.h"
+#include "tramphook.h"
+#include "c_enginevgui.h"
+#include "endscene.h"
 
 CInterfaces* Interface = nullptr;
 CDebugConsole* g_pDebug = nullptr;
@@ -25,7 +28,6 @@ BOOL WINAPI MainThread(HMODULE hThread)
 	Interface = new CInterfaces();
 	Hooks = new CHooks();
 
-	g_pDebug->Print("Getting localplayer...\n");
 	uintptr_t callLocalPlayer = (uintptr_t)((uintptr_t)(*(void***)Interface->ClientModeShared)[21] + 
 #ifndef _WIN64
 		4
@@ -48,32 +50,37 @@ BOOL WINAPI MainThread(HMODULE hThread)
 		);
 	}
 #endif
-
-	CNetvarManager* netvarmngr = new CNetvarManager();
-	netvarmngr->DumpClass(nullptr);
-	g_pDebug->Print("LP: %p\n", GetLocalPlayer());
-
-	g_pDebug->Print("Setting up hooks...\n");
-
 	Interface->Dump("client.dll");
 	Interface->Dump("engine.dll");
 	Interface->Dump("materialsystem.dll");
 
-	// disconnects from the server with your custom reason then crashes your game with a lua trace lol
-	// might be useful at some point
-	if (false)
 	{
-		DWORD netchan = **(DWORD**)(FindSignature("engine.dll", "\x55\x8b\xec\x51\xa1\x00\x00\x00\x00\x8b\x50\x00\x8d\x48\x00\x85\xd2\x74\x00\x80\x3a\x00\x74\x00\xe8\x00\x00\x00\x00\x50\xe8\x00\x00\x00\x00\x83\xc4\x00\xeb\x00\x8b\x40\x00\x85\xc0", "xxxxx????xx?xx?xxx?xx?x?x????xx????xx?x?xx?xx") + 0x31);
-
-		typedef void(__thiscall* tDisconnect)(void* pThis, const char* reason);
-		tDisconnect Disconnect = *(tDisconnect*)(*(DWORD*)netchan + 0x90);
-		g_pDebug->Print("Disconnect: %p\n", Disconnect);
-
-		Disconnect((void*)netchan, "Copper door knobs are self-disinfecting.");
+		Dummy* fummy = new Dummy();
+		typedef void(__stdcall*tDummy)();
+		tDummy DummyFunction = ::DummyFunction;
+		g_pDebug->Print("Dummy function: %p\n", DummyFunction);
+		g_pDebug->Print("Dummy hook: %p\n", DummyHook);
+		Sleep(1000);
+		g_pDebug->Print("hooking...\n");
+		TrampHook(DummyFunction, DummyHook, 23);
+		DummyFunction();
 	}
 
-	Hooks->EndScene->Hook();
-	// Hooks->CreateMove->Hook();
+#ifndef _WIN64
+	{
+		DWORD startupLua = FindSignature("client.dll", "\x55\x8B\xEC\x81\xEC\x00\x00\x00\x00\x53\x68\x00\x00\x00\x00\x8B\xD9", "xxxxx????xx????xx");
+		g_pDebug->Print("Startup lua: %p\n", startupLua);
+	}
+
+	CEngineVGui* vgui = EngineVGui();
+	g_pDebug->Print("vgui -> %p\n", vgui);
+
+#endif
+
+	// Hooks->EndScene->Hook();
+	oEndScene = (tEndScene)TrampHook(Hooks->pD3DDevice->vTable[42], (PVOID)hkEndScene, 7);
+
+	Hooks->CreateMove->Hook();
 
 	while (!g_bShutDown)
 	{

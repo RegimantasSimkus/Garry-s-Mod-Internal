@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="createmove.cpp" />
+    <ClCompile Include="c_enginevgui.cpp" />
     <ClCompile Include="c_playerresource.cpp" />
     <ClCompile Include="c_weapon.cpp" />
     <ClCompile Include="dllmain.cpp" />
@@ -166,9 +167,11 @@
     <ClCompile Include="ImGui\imgui_impl_win32.cpp" />
     <ClCompile Include="ImGui\imgui_tables.cpp" />
     <ClCompile Include="ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="tramphook.cpp" />
     <ClCompile Include="vector.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="asm_resolver.h" />
     <ClInclude Include="basetypes.h" />
     <ClInclude Include="chlclient.h" />
     <ClInclude Include="clientclass.h" />
@@ -187,6 +190,7 @@
     <ClInclude Include="debug.h" />
     <ClInclude Include="drawing.h" />
     <ClInclude Include="endscene.h" />
+    <ClInclude Include="c_enginevgui.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="hooks.h" />
     <ClInclude Include="iappsystem.h" />
@@ -215,6 +219,7 @@
     <ClInclude Include="qangle.h" />
     <ClInclude Include="sigscan.h" />
     <ClInclude Include="studio.h" />
+    <ClInclude Include="tramphook.h" />
     <ClInclude Include="vector.h" />
     <ClInclude Include="vmatrix.h" />
     <ClInclude Include="vmthook.h" />
