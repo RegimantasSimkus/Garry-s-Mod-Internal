@@ -88,6 +88,7 @@ BOOL WINAPI MainThread(HMODULE hThread)
 	}
 
 	g_pDebug->Print("Unloading...\n");
+	RestoreTrampHook(oEndScene, Hooks->pD3DDevice->vTable[42], 7);
 	Hooks->Release();
 	Sleep(100);
 	delete Interface;

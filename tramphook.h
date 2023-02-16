@@ -18,3 +18,4 @@ static void __stdcall DummyFunction()
 void __stdcall DummyHook();
 
 uintptr_t TrampHook(PVOID targetfunction, PVOID hook, SIZE_T bytes);
+void RestoreTrampHook(PVOID original, PVOID source, SIZE_T bytes);
