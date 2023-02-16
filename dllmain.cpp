@@ -24,6 +24,9 @@ BOOL WINAPI MainThread(HMODULE hThread)
 	g_pDebug->CreateInstance();
 	g_pDebug->Print("Initializing Cheat...\n");
 
+	g_pDebug->Print("ENDSCENE SIG -> %p\n", FindSignature("shaderapidx9.dll", "\x89\x35\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x80\xA7\x00\x00\x00\x00\x00", "xx????x????xx?????"));
+
+
 	// initializing stuff
 	Interface = new CInterfaces();
 	Hooks = new CHooks();
@@ -54,18 +57,6 @@ BOOL WINAPI MainThread(HMODULE hThread)
 	Interface->Dump("engine.dll");
 	Interface->Dump("materialsystem.dll");
 
-	{
-		Dummy* fummy = new Dummy();
-		typedef void(__stdcall*tDummy)();
-		tDummy DummyFunction = ::DummyFunction;
-		g_pDebug->Print("Dummy function: %p\n", DummyFunction);
-		g_pDebug->Print("Dummy hook: %p\n", DummyHook);
-		Sleep(1000);
-		g_pDebug->Print("hooking...\n");
-		TrampHook(DummyFunction, DummyHook, 23);
-		DummyFunction();
-	}
-
 #ifndef _WIN64
 	{
 		DWORD startupLua = FindSignature("client.dll", "\x55\x8B\xEC\x81\xEC\x00\x00\x00\x00\x53\x68\x00\x00\x00\x00\x8B\xD9", "xxxxx????xx????xx");
@@ -77,10 +68,12 @@ BOOL WINAPI MainThread(HMODULE hThread)
 
 #endif
 
-	// Hooks->EndScene->Hook();
-	oEndScene = (tEndScene)TrampHook(Hooks->pD3DDevice->vTable[42], (PVOID)hkEndScene, 7);
+	g_pDebug->Print("EndScene -> %p\n", Hooks->pD3DDevice->vTable[42]);
 
-	Hooks->CreateMove->Hook();
+	// Hooks->EndScene->Hook();
+	// Hooks->CreateMove->Hook();
+	CTrampHook* TrampEndScene = new CTrampHook(Hooks->pD3DDevice->vTable[42], (PVOID)hkEndScene, 7, (PVOID*)&oEndScene);
+	TrampEndScene->Enable();
 
 	while (!g_bShutDown)
 	{
@@ -88,7 +81,7 @@ BOOL WINAPI MainThread(HMODULE hThread)
 	}
 
 	g_pDebug->Print("Unloading...\n");
-	RestoreTrampHook(oEndScene, Hooks->pD3DDevice->vTable[42], 7);
+	TrampEndScene->Disable();
 	Hooks->Release();
 	Sleep(100);
 	delete Interface;
