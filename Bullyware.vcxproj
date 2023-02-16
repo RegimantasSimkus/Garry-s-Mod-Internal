@@ -171,7 +171,6 @@
     <ClCompile Include="vector.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="asm_resolver.h" />
     <ClInclude Include="basetypes.h" />
     <ClInclude Include="chlclient.h" />
     <ClInclude Include="clientclass.h" />

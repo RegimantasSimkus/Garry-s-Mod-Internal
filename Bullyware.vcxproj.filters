@@ -239,9 +239,6 @@
     <ClInclude Include="tramphook.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
-    <ClInclude Include="asm_resolver.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
     <ClInclude Include="c_enginevgui.h">
       <Filter>SDK</Filter>
     </ClInclude>
