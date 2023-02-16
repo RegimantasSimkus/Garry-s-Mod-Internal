@@ -18,7 +18,7 @@ CHooks::CHooks()
 
 #ifndef _WIN64
 	pD3DDevice = new VMTHookManager(
-		(PVOID)(**(DWORD**)(FindSignature("shaderapidx9.dll", "\x55\x8B\xEC\x81\xEC\x00\x00\x00\x00\x53\x56\x57", "xxxxx????xxx") + 0x116 + 2))
+		(PVOID)(**(DWORD**)(FindSignature("shaderapidx9.dll", "\x89\x35\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x80\xA7\x00\x00\x00\x00\x00", "xx????x????xx?????") + 2))
 	);
 #else
 	{
