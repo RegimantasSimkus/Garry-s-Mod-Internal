@@ -32,7 +32,7 @@ CHooks::CHooks()
 
 #endif
 
-	EndScene = pD3DDevice->Hook(42, (PVOID)hkEndScene, reinterpret_cast<PVOID*>(&oEndScene));
+	EndScene = new CTrampHook(pD3DDevice->vTable[42], (PVOID)hkEndScene, 7, (PVOID*)&oEndScene);
 }
 
 #define SAFE_RESTORE(name) \

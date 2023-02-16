@@ -37,11 +37,17 @@ public:
 		RestoreTrampHook(*pOriginalBytes, this->pTargetFunction, this->nBytes);
 		bEnabled = false;
 	}
+
 	bool Toggle()
 	{
 		if (bEnabled)
 			Disable();
 		else
 			Enable();
+	}
+
+	void Restore()
+	{
+		Disable();
 	}
 };

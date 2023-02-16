@@ -1,5 +1,6 @@
 #pragma once
 #include "vmthook.h"
+#include "tramphook.h"
 
 class CHooks
 {
@@ -7,7 +8,7 @@ public:
 	VMTHookManager* ClientModeShared;
 	VMTHook* CreateMove;
 	VMTHookManager* pD3DDevice;
-	VMTHook* EndScene;
+	CTrampHook* EndScene;
 	void Release();
 
 	CHooks();

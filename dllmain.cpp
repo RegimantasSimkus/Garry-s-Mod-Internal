@@ -70,10 +70,8 @@ BOOL WINAPI MainThread(HMODULE hThread)
 
 	g_pDebug->Print("EndScene -> %p\n", Hooks->pD3DDevice->vTable[42]);
 
-	// Hooks->EndScene->Hook();
+	Hooks->EndScene->Enable();
 	// Hooks->CreateMove->Hook();
-	CTrampHook* TrampEndScene = new CTrampHook(Hooks->pD3DDevice->vTable[42], (PVOID)hkEndScene, 7, (PVOID*)&oEndScene);
-	TrampEndScene->Enable();
 
 	while (!g_bShutDown)
 	{
@@ -81,7 +79,7 @@ BOOL WINAPI MainThread(HMODULE hThread)
 	}
 
 	g_pDebug->Print("Unloading...\n");
-	TrampEndScene->Disable();
+	Sleep(20);
 	Hooks->Release();
 	Sleep(100);
 	delete Interface;
